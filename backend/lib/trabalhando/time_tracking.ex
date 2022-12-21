@@ -36,8 +36,8 @@ defmodule Trabalhando.TimeTracking do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_work_span(project, attrs \\ %{}) do
-    %WorkSpan{project: project}
+  def create_work_span(task, attrs \\ %{}) do
+    %WorkSpan{task: task}
     |> WorkSpan.changeset(attrs)
     |> Repo.insert()
   end

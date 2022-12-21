@@ -10,7 +10,9 @@ defmodule TrabalhandoWeb.Router do
     pipe_through :api
 
     resources "/projects", ProjectController, except: [:new, :edit] do
-      resources "/work-spans", WorkSpanController, only: [:index, :create, :update, :delete]
+      resources "/tasks", TaskController, except: [:new, :edit] do
+        resources "/work-spans", WorkSpanController, only: [:create, :update, :delete]
+      end
     end
   end
 

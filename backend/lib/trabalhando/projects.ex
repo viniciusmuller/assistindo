@@ -7,7 +7,7 @@ defmodule Trabalhando.Projects do
   alias Trabalhando.Repo
 
   alias Trabalhando.Projects.Project
-  alias Trabalhando.TimeTracking.WorkSpan
+  alias Trabalhando.Tasks.Task
 
   @doc """
   Returns the list of projects.
@@ -19,11 +19,11 @@ defmodule Trabalhando.Projects do
 
   """
   def list_projects do
-    Repo.all(Project)
+    Repo.all(Project) |> Repo.preload(:tasks)
   end
 
-  def get_project_work_spans(project_id) do
-    Repo.all(from s in WorkSpan, where: s.project_id == ^project_id)
+  def get_project_tasks(project_id) do
+    Repo.all(from s in Task, where: s.project_id == ^project_id)
   end
 
   @doc """
@@ -40,7 +40,7 @@ defmodule Trabalhando.Projects do
       ** (Ecto.NoResultsError)
 
   """
-  def get_project!(id), do: Repo.get!(Project, id)
+  def get_project!(id), do: Repo.get!(Project, id) |> Repo.preload(:tasks)
 
   @doc """
   Creates a project.

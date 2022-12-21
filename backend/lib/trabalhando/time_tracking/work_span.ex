@@ -6,7 +6,7 @@ defmodule Trabalhando.TimeTracking.WorkSpan do
     field :description, :string
     field :end_date, :utc_datetime
     field :start_date, :utc_datetime
-    belongs_to :project, Trabalhando.Projects.Project
+    belongs_to :task, Trabalhando.Tasks.Task
 
     timestamps()
   end

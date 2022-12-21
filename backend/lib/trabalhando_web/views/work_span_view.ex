@@ -1,5 +1,6 @@
 defmodule TrabalhandoWeb.WorkSpanView do
   use TrabalhandoWeb, :view
+
   alias TrabalhandoWeb.WorkSpanView
 
   def render("index.json", %{work_spans: work_spans}) do
@@ -13,7 +14,7 @@ defmodule TrabalhandoWeb.WorkSpanView do
   def render("work_span.json", %{work_span: span}) do
     %{
       id: span.id,
-      project_id: span.project_id,
+      task_id: span.task_id,
       start_date: span.start_date,
       end_date: span.end_date,
       description: span.description

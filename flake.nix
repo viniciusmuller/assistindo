@@ -14,7 +14,8 @@
       {
         devShell = with pkgs; mkShell {
           buildInputs = [ 
-            elmPackages.elm
+            nodejs
+            nodePackages.typescript-language-server
 
             elixir
             elixir_ls

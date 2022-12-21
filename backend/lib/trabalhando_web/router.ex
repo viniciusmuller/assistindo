@@ -7,6 +7,8 @@ defmodule TrabalhandoWeb.Router do
 
   scope "/api", TrabalhandoWeb do
     pipe_through :api
+
+    resources "/projects", ProjectController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development

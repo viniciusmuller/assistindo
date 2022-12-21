@@ -16,6 +16,7 @@ defmodule TrabalhandoWeb.TaskView do
     %{
       id: task.id,
       project_id: task.project_id,
+      status: task.status,
       name: task.name,
       description: task.description,
       work_spans: render_association(task.work_spans)

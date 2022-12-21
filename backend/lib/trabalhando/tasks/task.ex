@@ -5,6 +5,7 @@ defmodule Trabalhando.Tasks.Task do
   schema "tasks" do
     field :description, :string
     field :name, :string
+    field :status, Ecto.Enum, values: [:todo, :doing, :done], default: :todo
     belongs_to :project, Trabalhando.Projects.Project
     has_many :work_spans, Trabalhando.TimeTracking.WorkSpan
 
@@ -14,7 +15,7 @@ defmodule Trabalhando.Tasks.Task do
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:name, :description])
-    |> validate_required([:name, :description])
+    |> cast(attrs, [:name, :description, :status])
+    |> validate_required([:name, :description, :status])
   end
 end

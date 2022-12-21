@@ -1,0 +1,11 @@
+.card-todo {
+  @apply bg-emerald-500;
+}
+
+.card-doing {
+  @apply bg-blue-500;
+}
+
+.card-done {
+  @apply bg-gray-500;
+}

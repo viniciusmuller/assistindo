@@ -1,14 +1,24 @@
 import axios, { AxiosInstance } from 'axios';
 
-export type ProjectId = string
+export type ProjectId = number
+export type TaskId = number
 
 interface PhoenixResponse<T> {
   data: T
 }
 
+export interface Task {
+  id: TaskId,
+  project_id: ProjectId,
+  name: string,
+  status: 'todo' | 'doing' | 'done'
+  description: string
+  work_spans: WorkSpan[] | null
+}
+
 export interface WorkSpan {
   id: string,
-  project_id: ProjectId,
+  task_id: TaskId,
   end_date: Date
   start_date: Date
   description: string
@@ -17,7 +27,8 @@ export interface WorkSpan {
 export interface Project {
   id: ProjectId,
   name: string,
-  hour_value: number
+  hour_value: number,
+  tasks: Task[]
 }
 
 class TrabalhandoService {
@@ -32,6 +43,14 @@ class TrabalhandoService {
 
   async getProjects(): Promise<Project[]> {
     return await this.performGet<Project[]>('/projects');
+  }
+
+  async getProjectTasks(projectId: ProjectId): Promise<Task[]> {
+    return await this.performGet<Task[]>(`/projects/${projectId}/tasks`);
+  }
+
+  async getTaskById(taskId: TaskId): Promise<Task> {
+    return await this.performGet<Task>(`/tasks/${taskId}`);
   }
 
   private async performGet<T>(route: string) {

@@ -15,6 +15,10 @@
         devShell = with pkgs; mkShell {
           buildInputs = [ 
             elmPackages.elm
+
+            elixir
+            elixir_ls
+            inotify-tools
           ];
         };
       });

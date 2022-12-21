@@ -10,11 +10,6 @@ defmodule Trabalhando.TimeTrackingTest do
 
     @invalid_attrs %{description: nil, end_date: nil, start_date: nil}
 
-    test "list_work_spans/0 returns all work_spans" do
-      work_span = work_span_fixture()
-      assert TimeTracking.list_work_spans() == [work_span]
-    end
-
     test "get_work_span!/1 returns the work_span with given id" do
       work_span = work_span_fixture()
       assert TimeTracking.get_work_span!(work_span.id) == work_span

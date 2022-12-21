@@ -3,11 +3,19 @@ defmodule TrabalhandoWeb.WorkSpanController do
 
   alias Trabalhando.TimeTracking.WorkSpan
   alias Trabalhando.TimeTracking
+  alias Trabalhando.Projects
 
   action_fallback TrabalhandoWeb.FallbackController
 
-  def create(conn, %{"work_span" => work_span_params}) do
-    with {:ok, %WorkSpan{} = span} <- TimeTracking.create_work_span(work_span_params) do
+  def index(conn, %{"project_id" => project_id}) do
+    spans = Projects.get_project_work_spans(project_id)
+    render(conn, "index.json", work_spans: spans)
+  end
+
+  def create(conn, %{"project_id" => project_id, "work_span" => work_span_params}) do
+    project = Projects.get_project!(project_id)
+
+    with {:ok, %WorkSpan{} = span} <- TimeTracking.create_work_span(project, work_span_params) do
       conn
       |> put_status(:created)
       |> render("show.json", work_span: span)

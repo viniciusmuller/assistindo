@@ -5,6 +5,7 @@ defmodule Trabalhando.Projects.Project do
   schema "projects" do
     field :hour_value, :decimal
     field :name, :string
+    has_many :work_spans, Trabalhando.TimeTracking.WorkSpan
 
     timestamps()
   end

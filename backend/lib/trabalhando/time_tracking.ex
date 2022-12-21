@@ -9,19 +9,6 @@ defmodule Trabalhando.TimeTracking do
   alias Trabalhando.TimeTracking.WorkSpan
 
   @doc """
-  Returns the list of work_spans.
-
-  ## Examples
-
-      iex> list_work_spans()
-      [%WorkSpan{}, ...]
-
-  """
-  def list_work_spans do
-    Repo.all(WorkSpan)
-  end
-
-  @doc """
   Gets a single work_span.
 
   Raises `Ecto.NoResultsError` if the Work span does not exist.
@@ -49,8 +36,8 @@ defmodule Trabalhando.TimeTracking do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_work_span(attrs \\ %{}) do
-    %WorkSpan{}
+  def create_work_span(project, attrs \\ %{}) do
+    %WorkSpan{project: project}
     |> WorkSpan.changeset(attrs)
     |> Repo.insert()
   end

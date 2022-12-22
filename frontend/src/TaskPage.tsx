@@ -21,17 +21,19 @@ function TaskPage() {
     <div className="p-8">
       {task !== null &&
         <div className="w-full border rounded-lg space-y-2 p-4">
-          <h1 className="text-4xl font-bold">{task.name}</h1>
-          <div className="space-x-2">
-            <label className="text-xl" htmlFor="status-select">
-              Status
-            </label>
-            {/* TODO: use "value" instead of "selected" */}
-            <select name="status-select">
-              <option selected={task.status == "todo"}>TODO</option>
-              <option selected={task.status == "doing"}>DOING</option>
-              <option selected={task.status == "done"}>DONE</option>
-            </select>
+          <div className="flex justify-between">
+            <h1 className="text-4xl font-bold">{task.name}</h1>
+            <div className="space-x-2">
+              <label className="text-xl" htmlFor="status-select">
+                Status
+              </label>
+              {/* TODO: use "value" instead of "selected" */}
+              <select name="status-select">
+                <option selected={task.status == "todo"}>TODO</option>
+                <option selected={task.status == "doing"}>DOING</option>
+                <option selected={task.status == "done"}>DONE</option>
+              </select>
+            </div>
           </div>
           <hr className="my-2" />
           <div className="flex">
@@ -63,9 +65,13 @@ function TaskPage() {
                       <label> End date </label>
                       <Input type="datetime-local" name="datetime" />
                     </div>
-                    <div className="space-x-2">
+                    <div className="space-x-2 flex items-center">
                       <Button text="Submit" classes="border border-black hover:bg-gray-200" />
                     </div>
+                  </div>
+                  <div className="flex space-x-2 items-center grow">
+                    <label> Description </label>
+                    <Input type="text" name="description" size={44} />
                   </div>
                 </div>
                 {task.work_spans != null && task.work_spans.length > 0 ? task.work_spans.map(span => (

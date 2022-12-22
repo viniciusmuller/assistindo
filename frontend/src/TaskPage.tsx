@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import BlankSlate from "./BlankSlate"
 import { Task, trabalhandoService } from "./services/trabalhando-service"
 import Button from "./ui/Button"
-import Input from "./ui/Input"
+import WorkSpanCard from "./WorkSpanCard"
 
 function TaskPage() {
   const { id } = useParams()
@@ -24,7 +24,7 @@ function TaskPage() {
             <label className="text-xl" htmlFor="status-select">
               Status
             </label>
-            {/* TODO: use "value" instead of "defaultValue" */}
+            {/* TODO: use "value" instead of "selected" */}
             <select name="status-select">
               <option selected={task.status == "todo"}>TODO</option>
               <option selected={task.status == "doing"}>DOING</option>
@@ -45,21 +45,7 @@ function TaskPage() {
               <h2 className="text-2xl font-bold mb-2">Work Spans</h2>
               <div className="space-y-2">
                 {task.work_spans != null && task.work_spans.length > 0 ? task.work_spans.map(span => (
-                  <div key={span.id} className="p-1 border rounded justify-between space-y-2">
-                    <div className="flex space-x-2 items-center">
-                      <label>
-                        Start date:
-                      </label>
-                      <Input defaultValue={span.start_date.slice(0, -1)} type="datetime-local" name="datetime" />
-                    </div>
-                    <div className="flex space-x-2 items-center">
-                      <label>
-                        End date:
-                      </label>
-                      <Input defaultValue={span.end_date.slice(0, -1)} type="datetime-local" name="datetime" />
-                    </div>
-                    <p>Description: {span.description}</p>
-                  </div>
+                  <WorkSpanCard key={span.id} workSpan={span} />
                 )) : <BlankSlate />}
               </div>
             </div>

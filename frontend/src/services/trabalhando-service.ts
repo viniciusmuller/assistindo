@@ -13,7 +13,6 @@ export interface Task {
   name: string,
   status: 'todo' | 'doing' | 'done'
   description: string
-  work_spans: WorkSpan[] | null
 }
 
 export interface WorkSpan {
@@ -34,8 +33,7 @@ export interface CreateWorkSpan {
 export interface Project {
   id: ProjectId,
   name: string,
-  hour_value: number,
-  tasks: Task[]
+  hour_value: number
 }
 
 class TrabalhandoService {
@@ -57,11 +55,15 @@ class TrabalhandoService {
   }
 
   async getProjectTasks(projectId: ProjectId): Promise<Task[]> {
-    return await this.performGet<Task[]>(`/projects/${projectId}/tasks`);
+    return await this.performGet<Task[]>(`/tasks?project_id=${projectId}`);
   }
 
   async getTaskById(taskId: TaskId): Promise<Task> {
     return await this.performGet<Task>(`/tasks/${taskId}`);
+  }
+
+  async getTaskWorkSpans(taskId: TaskId): Promise<WorkSpan[]> {
+    return await this.performGet<WorkSpan[]>(`/work-spans?task_id=${taskId}`);
   }
 
   async deleteWorkSpan(workSpanId: string) {

@@ -4,6 +4,7 @@ defmodule Trabalhando.Tasks do
   """
 
   import Ecto.Query, warn: false
+  alias Trabalhando.TimeTracking.WorkSpan
   alias Trabalhando.Repo
 
   alias Trabalhando.Tasks.Task
@@ -35,10 +36,11 @@ defmodule Trabalhando.Tasks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_task!(id),
-    do:
-      Repo.get!(Task, id)
-      |> Repo.preload(:work_spans)
+  def get_task!(id), do: Repo.get!(Task, id)
+
+  def list_task_work_spans(task_id) do
+    Repo.all(from ws in WorkSpan, where: ws.task_id == ^task_id)
+  end
 
   @doc """
   Creates a task.

@@ -7,6 +7,11 @@ defmodule TrabalhandoWeb.WorkSpanController do
 
   action_fallback TrabalhandoWeb.FallbackController
 
+  def index(conn, %{"task_id" => task_id}) do
+    work_spans = Tasks.list_task_work_spans(task_id)
+    render(conn, "index.json", work_spans: work_spans)
+  end
+
   def create(conn, %{"task_id" => task_id, "work_span" => work_span_params}) do
     task = Tasks.get_task!(task_id)
 

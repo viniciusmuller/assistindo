@@ -10,7 +10,7 @@ defmodule TrabalhandoWeb.Router do
 
     resources "/projects", ProjectController, except: [:new, :edit]
     resources "/tasks", TaskController, except: [:new, :edit]
-    resources "/work-spans", WorkSpanController, only: [:create, :update, :delete]
+    resources "/work-spans", WorkSpanController, only: [:create, :update, :delete, :index]
   end
 
   # Enables LiveDashboard only for development

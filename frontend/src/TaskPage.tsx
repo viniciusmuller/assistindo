@@ -1,15 +1,15 @@
-import { FaPencilAlt } from 'react-icons/fa'
-import { useEffect, useState } from "react"
-import ReactMarkdown from "react-markdown"
+import { useCallback, useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { Project, Task, trabalhandoService, WorkSpan } from "./services/trabalhando-service"
+import { toast } from 'react-hot-toast'
+import { Breadcrumb, BreadcrumbHome, BreadcrumbItem } from "./ui/Breadcrumb"
+import { BsChevronRight } from "react-icons/bs"
+import { FaPencilAlt } from "react-icons/fa"
+import Input from "./ui/Input"
+import ReactMarkdown from "react-markdown"
 import Button from "./ui/Button"
 import WorkSpanCard from "./WorkSpanCard"
-import Input from './ui/Input'
-import { Breadcrumb, BreadcrumbHome, BreadcrumbItem } from './ui/Breadcrumb'
-import BlankSlate from './ui/BlankSlate'
-import { BsChevronRight } from 'react-icons/bs'
-import { toast } from 'react-hot-toast'
+import BlankSlate from "./ui/BlankSlate"
 
 function TaskPage() {
   const { projectId, taskId } = useParams()
@@ -17,13 +17,18 @@ function TaskPage() {
   const [project, setProject] = useState<Project | null>(null)
   const [workSpans, setWorkSpans] = useState<WorkSpan[]>([])
 
-  useEffect(() => {
-    trabalhandoService.getTaskById(Number(taskId))
-      .then(t => setTask(t))
+  const fetchData = useCallback(async () => {
+    const project = await trabalhandoService.getProjectById(Number(projectId))
+    setProject(project)
+    const task = await trabalhandoService.getTaskById(Number(taskId))
+    setTask(task)
+    const workSpans = await trabalhandoService.getTaskWorkSpans(task.id)
+    setWorkSpans(workSpans)
+  }, [projectId, taskId])
 
-    trabalhandoService.getProjectById(Number(projectId))
-      .then(p => setProject(p))
-  }, [])
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   const createWorkSpan = () => {
     const span = {

@@ -2,7 +2,6 @@ defmodule TrabalhandoWeb.ProjectView do
   use TrabalhandoWeb, :view
 
   alias TrabalhandoWeb.ProjectView
-  alias TrabalhandoWeb.TaskView
 
   def render("index.json", %{projects: projects}) do
     %{data: render_many(projects, ProjectView, "project.json")}
@@ -16,15 +15,7 @@ defmodule TrabalhandoWeb.ProjectView do
     %{
       id: project.id,
       name: project.name,
-      hour_value: project.hour_value,
-      tasks: render_association(project.tasks)
+      hour_value: project.hour_value
     }
-  end
-
-  defp render_association(field) do
-    case field do
-      %Ecto.Association.NotLoaded{} -> nil
-      tasks -> render_many(tasks, TaskView, "task.json")
-    end
   end
 end

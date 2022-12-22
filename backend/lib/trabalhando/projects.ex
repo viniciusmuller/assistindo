@@ -19,7 +19,7 @@ defmodule Trabalhando.Projects do
 
   """
   def list_projects do
-    Repo.all(Project) |> Repo.preload(:tasks)
+    Repo.all(Project)
   end
 
   def get_project_tasks(project_id) do
@@ -40,7 +40,7 @@ defmodule Trabalhando.Projects do
       ** (Ecto.NoResultsError)
 
   """
-  def get_project!(id), do: Repo.get!(Project, id) |> Repo.preload(:tasks)
+  def get_project!(id), do: Repo.get!(Project, id)
 
   @doc """
   Creates a project.

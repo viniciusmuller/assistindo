@@ -28,8 +28,6 @@ function WorkSpanCard(props: WorkSpanCardProps) {
   const minutes = Math.floor(delta / 60) % 60;
   delta -= minutes * 60;
 
-  const seconds = delta % 60;
-
   return (
     <div className="p-2 border rounded space-y-2">
       <div className="flex space-x-8">
@@ -41,9 +39,9 @@ function WorkSpanCard(props: WorkSpanCardProps) {
           <label> End date </label>
           <Input defaultValue={span.end_date.slice(0, -1)} type="datetime-local" name="datetime" />
         </div>
-        <p>Worked for {`${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`}</p>
+        <p>Worked for {`${padZero(hours)}:${padZero(minutes)}`}</p>
         <div className="space-x-2">
-          <Button text="Save" classes="border border-black hover:bg-gray-200" />
+          <Button text="Update" classes="border border-black hover:bg-gray-200" />
           <Button text="Delete" classes="border border-black bg-red-400 hover:bg-red-600" />
         </div>
       </div>
@@ -51,7 +49,6 @@ function WorkSpanCard(props: WorkSpanCardProps) {
         <p>Description: {span.description}</p>
       </div>
     </div>
-
   )
 }
 

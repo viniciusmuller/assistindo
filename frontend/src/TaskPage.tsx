@@ -1,3 +1,4 @@
+import { FaPencilAlt } from 'react-icons/fa'
 import { useEffect, useState } from "react"
 import ReactMarkdown from "react-markdown"
 import { useParams } from "react-router-dom"
@@ -5,6 +6,7 @@ import BlankSlate from "./BlankSlate"
 import { Task, trabalhandoService } from "./services/trabalhando-service"
 import Button from "./ui/Button"
 import WorkSpanCard from "./WorkSpanCard"
+import Input from './ui/Input'
 
 function TaskPage() {
   const { id } = useParams()
@@ -34,16 +36,38 @@ function TaskPage() {
           <hr className="my-2" />
           <div className="flex">
             <div className="w-1/2 flex flex-col items-start">
-              <article className="prose grow">
+              <div className='flex justify-between w-full'>
+                <h2 className="text-2xl font-bold">Description</h2>
+                <button className="p-2 mr-4 rounded-full border shadow w-fit">
+                  {/* TODO: make this toggleable between a textarea for editing and markdown (use eye and pencil icon ) */}
+                  <FaPencilAlt />
+                </button>
+              </div>
+              <article className="prose grow mt-2">
                 <ReactMarkdown>
                   {task.description}
                 </ReactMarkdown>
               </article>
-              <Button text="Save" classes="border border-black hover:bg-gray-200" />
+              <Button text="Update" classes="border border-black hover:bg-gray-200" />
             </div>
             <div className="w-1/2">
               <h2 className="text-2xl font-bold mb-2">Work Spans</h2>
               <div className="space-y-2">
+                <div className="p-2 border rounded space-y-2">
+                  <div className="flex space-x-8">
+                    <div className="flex space-x-2 items-center">
+                      <label> Start date </label>
+                      <Input type="datetime-local" name="datetime" />
+                    </div>
+                    <div className="flex space-x-2 items-center grow">
+                      <label> End date </label>
+                      <Input type="datetime-local" name="datetime" />
+                    </div>
+                    <div className="space-x-2">
+                      <Button text="Submit" classes="border border-black hover:bg-gray-200" />
+                    </div>
+                  </div>
+                </div>
                 {task.work_spans != null && task.work_spans.length > 0 ? task.work_spans.map(span => (
                   <WorkSpanCard key={span.id} workSpan={span} />
                 )) : <BlankSlate />}

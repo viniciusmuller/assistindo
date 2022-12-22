@@ -9,11 +9,9 @@ defmodule TrabalhandoWeb.Router do
   scope "/api", TrabalhandoWeb do
     pipe_through :api
 
-    resources "/projects", ProjectController, except: [:new, :edit] do
-      resources "/tasks", TaskController, except: [:new, :edit] do
-        resources "/work-spans", WorkSpanController, only: [:create, :update, :delete]
-      end
-    end
+    resources "/projects", ProjectController, except: [:new, :edit]
+    resources "/tasks", TaskController, except: [:new, :edit]
+    resources "/work-spans", WorkSpanController, only: [:create, :update, :delete]
   end
 
   # Enables LiveDashboard only for development

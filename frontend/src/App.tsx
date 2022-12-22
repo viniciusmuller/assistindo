@@ -7,7 +7,7 @@ import TaskPage from './TaskPage';
 
 function NoMatch() {
   return (
-    <h1>not found</h1>
+    <h1 className='text-3xl font-bold p-3'>Not found</h1>
   )
 }
 
@@ -17,17 +17,16 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Index />} />
-          <Route index element={<Index />} />
-          <Route path="/project/:id" element={<ProjectPage />} />
-          <Route path="/task/:id" element={<TaskPage />} >
-            {/* <Route path="about" element={<About />} /> */}
-            {/* <Route path="dashboard" element={<Dashboard />} /> */}
+        <Route index element={<Index />} />
+        <Route path="projects/:projectId" element={<ProjectPage />} />
+        <Route path="projects/:projectId/tasks/:taskId" element={<TaskPage />} />
+        {/* <Route path="about" element={<About />} /> */}
+        {/* <Route path="dashboard" element={<Dashboard />} /> */}
 
-            {/* Using path="*"" means "match anything", so this route
+        {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
-            <Route path="*" element={<NoMatch />} />
-          </Route>
+        <Route path="*" element={<NoMatch />} />
       </Routes>
     </>
   )

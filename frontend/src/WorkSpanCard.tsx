@@ -1,9 +1,10 @@
-import { WorkSpan } from "./services/trabalhando-service"
 import Button from "./ui/Button"
 import Input from "./ui/Input";
+import { WorkSpan } from "./services/trabalhando-service";
 
 interface WorkSpanCardProps {
   workSpan: WorkSpan
+  onDelete: ((_: WorkSpan) => Promise<void>)
 }
 
 function WorkSpanCard(props: WorkSpanCardProps) {
@@ -42,7 +43,7 @@ function WorkSpanCard(props: WorkSpanCardProps) {
         <p>Worked for {`${padZero(hours)}:${padZero(minutes)}`}</p>
         <div className="space-x-2">
           <Button text="Update" classes="border border-black hover:bg-gray-200" />
-          <Button text="Delete" classes="border border-black bg-red-400 hover:bg-red-600" />
+          <Button text="Delete" onClick={() => props.onDelete(span)} classes="border border-black bg-red-400 hover:bg-red-600" />
         </div>
       </div>
       <div>

@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Index from './Index';
 import ProjectPage from './ProjectPage';
 import TaskPage from './TaskPage';
+import { Toaster } from 'react-hot-toast';
 
 function NoMatch() {
   return (
@@ -15,6 +16,10 @@ function App() {
   return (
     <>
       <Navbar />
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route index element={<Index />} />

@@ -24,6 +24,13 @@ export interface WorkSpan {
   description: string
 }
 
+export interface CreateWorkSpan {
+  task_id: TaskId,
+  end_date: string
+  start_date: string
+  description: string
+}
+
 export interface Project {
   id: ProjectId,
   name: string,
@@ -55,6 +62,16 @@ class TrabalhandoService {
 
   async getTaskById(taskId: TaskId): Promise<Task> {
     return await this.performGet<Task>(`/tasks/${taskId}`);
+  }
+
+  async deleteWorkSpan(workSpanId: string) {
+    return await this.axios.delete(`/work-spans/${workSpanId}`)
+  }
+
+  // TODO: learn more about TS error handling
+  async createWorkSpan(span: CreateWorkSpan): Promise<WorkSpan> {
+    const response = await this.axios.post(`/work-spans`, { task_id: span.task_id, work_span: span })
+    return response.data.data
   }
 
   private async performGet<T>(route: string) {

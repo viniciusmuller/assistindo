@@ -18,17 +18,17 @@ function ProjectBoard(props: ProjectBoardProps) {
     <div className='w-full space-y-2'>
       <div className="w-full flex space-x-4 justify-around">
         <div className="flex flex-col w-1/3">
-          <h1>TODO</h1>
+          <h1 className="font-bold">TODO</h1>
           <TaskList projectId={projectId!} tasks={todoTasks} />
         </div>
 
         <div className="flex flex-col w-1/3">
-          <h1>DOING</h1>
+          <h1 className="font-bold">DOING</h1>
           <TaskList projectId={projectId!} tasks={doingTasks} />
         </div>
 
         <div className="flex flex-col w-1/3">
-          <h1>DONE</h1>
+          <h1 className="font-bold">DONE</h1>
           <TaskList projectId={projectId!} tasks={doneTasks} />
         </div>
       </div>

@@ -2,18 +2,20 @@ import { FaPencilAlt } from 'react-icons/fa'
 import { useEffect, useState } from "react"
 import ReactMarkdown from "react-markdown"
 import { Link, useParams } from "react-router-dom"
-import { Project, Task, trabalhandoService } from "./services/trabalhando-service"
+import { Project, Task, trabalhandoService, WorkSpan } from "./services/trabalhando-service"
 import Button from "./ui/Button"
 import WorkSpanCard from "./WorkSpanCard"
 import Input from './ui/Input'
 import { Breadcrumb, BreadcrumbHome, BreadcrumbItem } from './ui/Breadcrumb'
 import BlankSlate from './ui/BlankSlate'
 import { BsChevronRight } from 'react-icons/bs'
+import { toast } from 'react-hot-toast'
 
 function TaskPage() {
   const { projectId, taskId } = useParams()
   const [task, setTask] = useState<Task | null>(null)
   const [project, setProject] = useState<Project | null>(null)
+  const [workSpans, setWorkSpans] = useState<WorkSpan[]>([])
 
   useEffect(() => {
     trabalhandoService.getTaskById(Number(taskId))
@@ -22,6 +24,43 @@ function TaskPage() {
     trabalhandoService.getProjectById(Number(projectId))
       .then(p => setProject(p))
   }, [])
+
+  const createWorkSpan = () => {
+    const span = {
+      task_id: Number(taskId!),
+      start_date: new Date().toISOString(),
+      end_date: new Date().toISOString(),
+      description: "foo"
+    }
+    const promise = trabalhandoService.createWorkSpan(span);
+
+    toast.promise(
+      promise,
+      {
+        loading: 'Registering work span...',
+        success: <b>Succesfully registered work span!</b>,
+        error: <b>Could not register work span.</b>,
+      }
+    );
+
+    promise.then((span) => setWorkSpans([...workSpans, span]))
+  }
+
+  const deleteWorkSpan = async (span: WorkSpan) => {
+    const promise = trabalhandoService.deleteWorkSpan(span.id);
+
+    toast.promise(
+      promise,
+      {
+        loading: 'Deleting work span...',
+        success: <b>Succesfully deleted work span!</b>,
+        error: <b>Could not delete work span.</b>,
+      }
+    );
+
+    promise.then(() => setWorkSpans(workSpans.filter(ws => ws.id != span.id)))
+  }
+
 
   return (
     <div className="p-4 space-y-4">
@@ -86,7 +125,7 @@ function TaskPage() {
                         <Input type="datetime-local" name="datetime" />
                       </div>
                       <div className="space-x-2 flex items-center">
-                        <Button text="Submit" classes="border border-black hover:bg-gray-200" />
+                        <Button onClick={createWorkSpan} text="Submit" classes="border border-black hover:bg-gray-200" />
                       </div>
                     </div>
                     <div className="flex space-x-2 items-center grow">
@@ -94,8 +133,8 @@ function TaskPage() {
                       <Input type="text" name="description" size={44} />
                     </div>
                   </div>
-                  {task.work_spans != null && task.work_spans.length > 0 ? task.work_spans.map(span => (
-                    <WorkSpanCard key={span.id} workSpan={span} />
+                  {workSpans != null && workSpans.length > 0 ? workSpans.map(span => (
+                    <WorkSpanCard onDelete={deleteWorkSpan} key={span.id} workSpan={span} />
                   )) : <BlankSlate />}
                 </div>
               </div>

@@ -5,6 +5,7 @@ import ProjectBoard from "./ProjectBoard";
 import ProjectCard from "./ProjectCard";
 import { Project, trabalhandoService } from "./services/trabalhando-service";
 import { Breadcrumb, BreadcrumbHome, BreadcrumbItem, BreadcrumbProject } from "./ui/Breadcrumb";
+import Button from "./ui/Button";
 
 function ProjectPage() {
   const { projectId } = useParams()
@@ -23,7 +24,7 @@ function ProjectPage() {
             <BreadcrumbHome />
             <BsChevronRight />
             <BreadcrumbItem>
-              <span>codando</span>
+              <span>{project.name}</span>
             </BreadcrumbItem>
           </Breadcrumb>
           {/* TODO: don't use project card component here 
@@ -31,6 +32,7 @@ function ProjectPage() {
             and should not try to use or modify the existing project card
           */}
           <ProjectCard project={project} />
+          <Button text="Create new task" classes="border border-black hover:bg-gray-200" />
           <ProjectBoard project={project} />
         </div>
       }

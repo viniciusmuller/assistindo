@@ -6,7 +6,7 @@ interface TaskCardProps {
 
 function TaskCard(props: TaskCardProps) {
   return (
-    <div className="w-full border rounded cursor-pointer">
+    <div className="w-full border rounded">
       <div className="px-8 py-4">
         <div className="w-full flex items-center justify-between">
           <h1 className="text-3xl font-bold">{props.task.name}</h1>

@@ -19,8 +19,8 @@ export interface Task {
 export interface WorkSpan {
   id: string,
   task_id: TaskId,
-  end_date: Date
-  start_date: Date
+  end_date: string
+  start_date: string
   description: string
 }
 

@@ -17,6 +17,10 @@ function ProjectPage() {
     <div>
       {project !== null &&
         <div className="p-6">
+          {/* TODO: don't use project card component here 
+            this will show different information (such as an options edit button, etc)
+            and should not try to use or modify the existing project card
+          */}
           <ProjectCard project={project} />
           <div className="mt-4">
             <ProjectBoard project={project} />

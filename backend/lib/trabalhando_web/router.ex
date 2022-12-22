@@ -2,7 +2,6 @@ defmodule TrabalhandoWeb.Router do
   use TrabalhandoWeb, :router
 
   pipeline :api do
-    plug CORSPlug
     plug :accepts, ["json"]
   end
 

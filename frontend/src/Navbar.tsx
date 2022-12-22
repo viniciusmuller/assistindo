@@ -1,4 +1,5 @@
 import { GiWarPick } from 'react-icons/gi'
+import { Link } from 'react-router-dom'
 
 function Navbar() {
   return (
@@ -6,9 +7,9 @@ function Navbar() {
       <div className="flex items-center flex-shrink-0 mr-6">
         <div className="flex space-x-1 items-center">
           <GiWarPick size={20} />
-          <span className="font-semibold text-xl tracking-tight">
+          <Link className='font-semibold text-xl tracking-tight' to="/">
             Trabalhando
-          </span>
+          </Link>
         </div>
       </div>
     </nav >

@@ -41,6 +41,10 @@ class TrabalhandoService {
     });
   }
 
+  async getProjectById(id: ProjectId): Promise<Project> {
+    return await this.performGet<Project>(`/projects/${id}`);
+  }
+
   async getProjects(): Promise<Project[]> {
     return await this.performGet<Project[]>('/projects');
   }

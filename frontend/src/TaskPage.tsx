@@ -9,6 +9,7 @@ import Button from "./ui/Button"
 import WorkSpanCard from "./WorkSpanCard"
 import BlankSlate from "./ui/BlankSlate"
 import { useForm } from "react-hook-form"
+import TaskForm from "./TaskForm"
 
 function TaskPage() {
   const { projectId, taskId } = useParams()
@@ -18,8 +19,6 @@ function TaskPage() {
 
   // TODO: move workspan form to different component
   const { register, handleSubmit, formState: { errors } } = useForm<WorkSpanInputs>();
-  // const taskForm = { register, handleSubmit, formState: { errorsTask } } = useForm<TaskInputs>();
-  const taskForm = useForm<TaskInputs>();
 
   const fetchData = useCallback(async () => {
     const project = await trabalhandoService.getProjectById(Number(projectId))
@@ -27,7 +26,14 @@ function TaskPage() {
     const task = await trabalhandoService.getTaskById(Number(taskId))
     setTask(task)
     const workSpans = await trabalhandoService.getTaskWorkSpans(task.id)
-    setWorkSpans(workSpans)
+
+    setWorkSpans(workSpans.sort((ws1, ws2) => {
+      if (new Date(ws1.end_date) >= new Date(ws2.end_date)) {
+        return -1
+      } else {
+        return 1
+      }
+    }))
   }, [projectId, taskId])
 
   useEffect(() => {
@@ -52,7 +58,7 @@ function TaskPage() {
       }
     );
 
-    promise.then((span) => setWorkSpans([...workSpans, span]))
+    promise.then((span) => setWorkSpans([span, ...workSpans]))
   }
 
   const deleteWorkSpan = async (span: WorkSpan) => {
@@ -90,7 +96,6 @@ function TaskPage() {
     promise.then((task) => setTask(task))
   }
 
-
   return (
     <div className="p-4 space-y-4">
       {task !== null && project !== null &&
@@ -109,63 +114,45 @@ function TaskPage() {
             </BreadcrumbItem>
           </Breadcrumb>
           {/* TODO: remove form nesting */}
-          <form className="w-full border rounded-lg space-y-2 p-4" onSubmit={taskForm.handleSubmit(updateTask)}>
-            <div className="flex justify-between">
-              <input type="text" defaultValue={task.name} size={50} {...taskForm.register("name")} />
-              <div className="space-x-2">
-                <label className="text-xl" htmlFor="status-select">
-                  Status
-                </label>
-                <select {...taskForm.register("status")} defaultValue={task.status}>
-                  <option value="todo">TODO</option>
-                  <option value="doing">DOING</option>
-                  <option value="done">DONE</option>
-                </select>
+          <div className="flex border rounded-lg space-x-4 p-4">
+            <div className="w-1/2">
+              <TaskForm handleSubmit={updateTask} task={task} />
+            </div>
+            <div className="w-1/2">
+              <details>
+                <summary>Register work span</summary>
+                <form onSubmit={handleSubmit(createWorkSpan)} className="p-2 border rounded space-y-2 mb-6">
+                  <div className="flex space-x-8">
+                    <div className="flex space-x-2 items-center">
+                      <label> Start date </label>
+                      {/* TODO: figure out how to use our custom input in here */}
+                      {/* TODO: make default respect timezone but exclude seconds precision */}
+                      <input type="datetime-local" {...register("startDate")} defaultValue={getCurrentDate()} />
+                    </div>
+                    <div className="flex space-x-2 items-center grow">
+                      <label> End date </label>
+                      <input type="datetime-local" {...register("endDate")} defaultValue={getCurrentDate()} />
+                    </div>
+                    <div className="space-x-2 flex items-center">
+                      <Button type="submit" text="Submit" classes="border border-black hover:bg-gray-200" />
+                    </div>
+                  </div>
+                  <div className="flex space-x-2 items-center grow">
+                    <label> Description </label>
+                    <input type="text" size={44} {...register("description", { required: true })} />
+                    {errors.description && <p>Cannot be blank</p>}
+                  </div>
+                </form>
+              </details>
+              {/* <h2 className="text-2xl font-bold mb-2">Work Spans</h2> */}
+              <div className="space-y-2">
+                {workSpans != null && workSpans.length > 0 ? workSpans.map(span => (
+                  <WorkSpanCard onDelete={deleteWorkSpan} key={span.id} workSpan={span} />
+                )) : <BlankSlate />}
               </div>
             </div>
             <hr className="my-2" />
-            <div className="flex">
-              <div className="w-1/2 flex flex-col items-start">
-                <h2 className="text-2xl font-bold">Description</h2>
-                <div className="w-full h-full py-2 pr-5">
-                  <textarea className="w-full min-h-full rounded" spellCheck={false} defaultValue={task.description} {...taskForm.register("description")}>
-                  </textarea>
-                </div>
-                <Button text="Update" type="submit" classes="border border-black hover:bg-gray-200" />
-              </div>
-              <div className="w-1/2">
-                <h2 className="text-2xl font-bold mb-2">Work Spans</h2>
-                <div className="space-y-2">
-                  <form
-                    onSubmit={handleSubmit(createWorkSpan)} className="p-2 border rounded space-y-2">
-                    <div className="flex space-x-8">
-                      <div className="flex space-x-2 items-center">
-                        <label> Start date </label>
-                        {/* TODO: figure out how to use our custom input in here */}
-                        {/* TODO: make default respect timezone but exclude seconds precision */}
-                        <input type="datetime-local" {...register("startDate")} defaultValue={getCurrentDate()} />
-                      </div>
-                      <div className="flex space-x-2 items-center grow">
-                        <label> End date </label>
-                        <input type="datetime-local" {...register("endDate")} defaultValue={getCurrentDate()} />
-                      </div>
-                      <div className="space-x-2 flex items-center">
-                        <Button type="submit" text="Submit" classes="border border-black hover:bg-gray-200" />
-                      </div>
-                    </div>
-                    <div className="flex space-x-2 items-center grow">
-                      <label> Description </label>
-                      <input type="text" size={44} {...register("description", { required: true })} />
-                      {errors.description && <p>Cannot be blank</p>}
-                    </div>
-                  </form>
-                  {workSpans != null && workSpans.length > 0 ? workSpans.map(span => (
-                    <WorkSpanCard onDelete={deleteWorkSpan} key={span.id} workSpan={span} />
-                  )) : <BlankSlate />}
-                </div>
-              </div>
-            </div>
-          </form>
+          </div>
         </>
       }
     </div >

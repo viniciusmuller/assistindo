@@ -31,7 +31,19 @@ function ProjectPage() {
             this will show different information (such as an options edit button, etc)
             and should not try to use or modify the existing project card
           */}
-          <ProjectCard project={project} />
+          <div className="w-full px-8 py-4 space-y-2 border rounded-lg bg-white">
+            <div className="w-full flex items-center justify-between">
+              <h1 className="text-3xl font-bold">{project.name}</h1>
+              <h2 className="text-xl font-bold">10 hours last 2 weeks</h2>
+            </div>
+            <div className="w-full flex items-center justify-between">
+              <div>
+                <p className="text-lg">9 tasks in progress</p>
+                <p className="text-lg">2 tasks pending</p>
+              </div>
+              <p className="text-lg">Hourly value: ${project.hour_value}</p>
+            </div>
+          </div>
           <Button text="Create new task" classes="border border-black hover:bg-gray-200" />
           <ProjectBoard project={project} />
         </div>

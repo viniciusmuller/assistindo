@@ -29,6 +29,12 @@ function WorkSpanCard(props: WorkSpanCardProps) {
   const minutes = Math.floor(delta / 60) % 60;
   delta -= minutes * 60;
 
+  const handleDelete = async () => {
+    if (confirm(`Delete work span with description: "${span.description}"?`)) {
+      await props.onDelete(span)
+    }
+  }
+
   return (
     <div className="p-2 border rounded space-y-2">
       <div className="flex space-x-8">
@@ -43,7 +49,7 @@ function WorkSpanCard(props: WorkSpanCardProps) {
         <p>Worked for {`${padZero(hours)}:${padZero(minutes)}`}</p>
         <div className="space-x-2">
           <Button text="Update" classes="border border-black hover:bg-gray-200" />
-          <Button text="Delete" onClick={() => props.onDelete(span)} classes="border border-black bg-red-400 hover:bg-red-600" />
+          <Button text="Delete" onClick={handleDelete} classes="border border-black bg-red-400 hover:bg-red-600" />
         </div>
       </div>
       <div>

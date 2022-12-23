@@ -1,6 +1,9 @@
 # Trabalhando
 
 # TODO
-- [] Add breadcrumbs
+- [x] Add breadcrumbs
 - [] Create and delete resources using the frontend
-- [] Add toasts for showing errors and status messages
+- [x] Add toasts for showing errors and status messages
+- [ ] Generate Excel report
+- [ ] Create insights tab
+- [ ] Add internationalization

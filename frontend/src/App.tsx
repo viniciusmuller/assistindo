@@ -5,6 +5,7 @@ import Index from './Index';
 import ProjectPage from './ProjectPage';
 import TaskPage from './TaskPage';
 import { Toaster } from 'react-hot-toast';
+import CreateTaskPage from './CreateTaskPage';
 
 function NoMatch() {
   return (
@@ -24,9 +25,8 @@ function App() {
         <Route path="/" element={<Index />} />
         <Route index element={<Index />} />
         <Route path="projects/:projectId" element={<ProjectPage />} />
+        <Route path="projects/:projectId/tasks/new" element={<CreateTaskPage />} />
         <Route path="projects/:projectId/tasks/:taskId" element={<TaskPage />} />
-        {/* <Route path="about" element={<About />} /> */}
-        {/* <Route path="dashboard" element={<Dashboard />} /> */}
 
         {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit

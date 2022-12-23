@@ -13,7 +13,11 @@ function TaskForm(props: TaskFormProps) {
   return (
     <form className="space-y-3" onSubmit={handleSubmit(props.handleSubmit)}>
       <div className="flex justify-between">
-        <input type="text" defaultValue={props.task?.name} size={50} {...register("name")} />
+        <div className="space-x-2">
+          <label>Name</label>
+          <input type="text" defaultValue={props.task?.name} size={50} {...register("name")} />
+        </div>
+
         <div className="space-x-2">
           <label className="text-xl" htmlFor="status-select">
             Status
@@ -29,7 +33,7 @@ function TaskForm(props: TaskFormProps) {
         <label>Description</label>
         <textarea className="w-full h-[500px] rounded" spellCheck={false} defaultValue={props.task?.description} {...register("description")} />
       </div>
-      <Button text="Update" type="submit" classes="border border-black hover:bg-gray-200" />
+      <Button text="Submit" type="submit" classes="border border-black hover:bg-gray-200" />
     </form>
   )
 }

@@ -87,6 +87,11 @@ class TrabalhandoService {
     return response.data.data
   }
 
+  async createTask(projectId: string, data: TaskInputs): Promise<Task> {
+    const response = await this.axios.post(`/tasks`, { project_id: projectId, task: data })
+    return response.data.data
+  }
+
   // TODO: learn more about TS error handling
   async createWorkSpan(span: CreateWorkSpan): Promise<WorkSpan> {
     const response = await this.axios.post(`/work-spans`, { task_id: span.task_id, work_span: span })

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { BsChevronRight } from "react-icons/bs";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProjectBoard from "./ProjectBoard";
-import ProjectCard from "./ProjectCard";
 import { Project, trabalhandoService } from "./services/trabalhando-service";
-import { Breadcrumb, BreadcrumbHome, BreadcrumbItem, BreadcrumbProject } from "./ui/Breadcrumb";
+import { Breadcrumb, BreadcrumbHome, BreadcrumbItem } from "./ui/Breadcrumb";
 import Button from "./ui/Button";
 
 function ProjectPage() {
   const { projectId } = useParams()
   const [project, setProject] = useState<Project | null>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     trabalhandoService.getProjectById(Number(projectId))
@@ -44,7 +44,7 @@ function ProjectPage() {
               <p className="text-lg">Hourly value: ${project.hour_value}</p>
             </div>
           </div>
-          <Button text="Create new task" classes="border border-black hover:bg-gray-200" />
+          <Button text="Create new task" classes="border border-black hover:bg-gray-200" onClick={() => navigate(`/projects/${projectId}/tasks/new`)} />
           <ProjectBoard project={project} />
         </div>
       }

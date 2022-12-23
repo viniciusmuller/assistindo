@@ -30,7 +30,7 @@ defmodule Trabalhando.Projects do
       group_by: p.id,
       select: %{
         p
-        | hours_last_two_weeks:
+        | total_hours:
             coalesce(
               sum(fragment("EXTRACT(EPOCH from ? - ?) / 3600", w.end_date, w.start_date)),
               0

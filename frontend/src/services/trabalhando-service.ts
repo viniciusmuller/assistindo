@@ -41,7 +41,7 @@ export interface Project {
   name: string,
   hour_value: string
   currency_prefix: string
-  hours_last_two_weeks: string
+  total_hours: string
 }
 
 class TrabalhandoService {

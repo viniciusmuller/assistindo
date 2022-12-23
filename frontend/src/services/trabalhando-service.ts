@@ -7,6 +7,18 @@ interface PhoenixResponse<T> {
   data: T
 }
 
+export type TaskInputs = {
+  name: string,
+  status: string,
+  description: string,
+};
+
+export type WorkSpanInputs = {
+  startDate: string,
+  endDate: string,
+  description: string,
+};
+
 export interface Task {
   id: TaskId,
   project_id: ProjectId,
@@ -68,6 +80,11 @@ class TrabalhandoService {
 
   async deleteWorkSpan(workSpanId: string) {
     return await this.axios.delete(`/work-spans/${workSpanId}`)
+  }
+
+  async updateTask(taskId: string, data: TaskInputs): Promise<Task> {
+    const response = await this.axios.put(`/tasks/${taskId}`, { task: data })
+    return response.data.data
   }
 
   // TODO: learn more about TS error handling

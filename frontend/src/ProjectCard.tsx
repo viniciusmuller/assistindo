@@ -16,7 +16,7 @@ function ProjectCard(props: ProjectCardProps) {
           <p className="text-lg">9 tasks in progress</p>
           <p className="text-lg">2 tasks pending</p>
         </div>
-        <p className="text-lg">Hourly value: ${props.project.hour_value}</p>
+        <p className="text-lg">Hourly value: {props.project.currency_prefix}{props.project.hour_value}</p>
       </div>
     </div>
   )

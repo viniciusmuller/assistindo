@@ -39,6 +39,7 @@ export interface Project {
   id: ProjectId,
   name: string,
   hour_value: number
+  currency_prefix: string
 }
 
 class TrabalhandoService {

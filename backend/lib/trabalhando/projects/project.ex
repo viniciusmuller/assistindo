@@ -5,6 +5,7 @@ defmodule Trabalhando.Projects.Project do
   schema "projects" do
     field :hour_value, :decimal
     field :name, :string
+    field :currency_prefix, :string, default: "$"
     has_many :tasks, Trabalhando.Tasks.Task
 
     timestamps()
@@ -13,7 +14,7 @@ defmodule Trabalhando.Projects.Project do
   @doc false
   def changeset(project, attrs) do
     project
-    |> cast(attrs, [:name, :hour_value])
+    |> cast(attrs, [:name, :hour_value, :currency_prefix])
     |> validate_required([:name, :hour_value])
   end
 end

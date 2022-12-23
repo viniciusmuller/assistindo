@@ -39,8 +39,9 @@ export interface WorkSpan {
 export interface Project {
   id: ProjectId,
   name: string,
-  hour_value: number
+  hour_value: string
   currency_prefix: string
+  hours_last_two_weeks: string
 }
 
 class TrabalhandoService {

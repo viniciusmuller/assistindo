@@ -16,7 +16,8 @@ defmodule TrabalhandoWeb.ProjectView do
       id: project.id,
       name: project.name,
       hour_value: project.hour_value,
-      currency_prefix: project.currency_prefix
+      currency_prefix: project.currency_prefix,
+      hours_last_two_weeks: project.hours_last_two_weeks
     }
   end
 end

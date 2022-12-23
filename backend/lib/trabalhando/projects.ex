@@ -4,7 +4,6 @@ defmodule Trabalhando.Projects do
   """
 
   import Ecto.Query, warn: false
-  alias Trabalhando.TimeTracking.WorkSpan
   alias Trabalhando.Repo
 
   alias Trabalhando.Projects.Project
@@ -20,13 +19,28 @@ defmodule Trabalhando.Projects do
 
   """
   def list_projects do
+    # query =
+    #   from(p in Project,
+    #     select: %{
+    #       p
+    #       | hours_last_two_weeks: 20
+    #         # from(t2 in Task,
+    #         #   where: t2.id == ^t1.id,
+    #         #   join: ws in assoc(t2, :work_spans),
+    #         #   group_by: [ws.task_id, t2.id],
+    #         #   select:
+    #         #     sum(fragment("EXTRACT(EPOCH from ? - ?) / 3600", ws.end_date, ws.start_date))
+    #         # )
+    #     }
+    #   )
+
     Repo.all(Project)
   end
 
   def get_project_tasks(project_id) do
     query =
       from(t in Task,
-        join: ws in assoc(t, :work_spans),
+        left_join: ws in assoc(t, :work_spans),
         group_by: [ws.task_id, t.id],
         where: t.project_id == ^project_id,
         select: %{
@@ -36,7 +50,14 @@ defmodule Trabalhando.Projects do
         }
       )
 
+    # TODO: figure how to do it inside the query
     Repo.all(query)
+    |> Enum.map(fn task ->
+      case task.total_hours do
+        nil -> Map.put(task, :total_hours, 0)
+        _ -> task
+      end
+    end)
   end
 
   @doc """

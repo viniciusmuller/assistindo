@@ -12,7 +12,7 @@ function ProjectPage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    trabalhandoService.getProjectById(Number(projectId))
+    trabalhandoService.getProjectById(projectId!)
       .then(p => setProject(p))
   }, [])
 
@@ -41,11 +41,11 @@ function ProjectPage() {
                 <p className="text-lg">9 tasks in progress</p>
                 <p className="text-lg">2 tasks pending</p>
               </div>
-              <p className="text-lg">Hourly value: ${project.hour_value}</p>
+              <Button text="Details" classes="border border-black hover:bg-gray-200" onClick={() => navigate(`/projects/${projectId}/details`)} />
             </div>
           </div>
           <Button text="Create new task" classes="border border-black hover:bg-gray-200" onClick={() => navigate(`/projects/${projectId}/tasks/new`)} />
-          <ProjectBoard project={project} />
+          <ProjectBoard />
         </div>
       }
     </div>

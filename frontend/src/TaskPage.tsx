@@ -4,7 +4,6 @@ import { Project, Task, TaskInputs, trabalhandoService, WorkSpan, WorkSpanInputs
 import { toast } from 'react-hot-toast'
 import { Breadcrumb, BreadcrumbHome, BreadcrumbItem } from "./ui/Breadcrumb"
 import { BsChevronRight } from "react-icons/bs"
-import Input from "./ui/Input"
 import Button from "./ui/Button"
 import WorkSpanCard from "./WorkSpanCard"
 import BlankSlate from "./ui/BlankSlate"
@@ -21,9 +20,9 @@ function TaskPage() {
   const { register, handleSubmit, formState: { errors } } = useForm<WorkSpanInputs>();
 
   const fetchData = useCallback(async () => {
-    const project = await trabalhandoService.getProjectById(Number(projectId))
+    const project = await trabalhandoService.getProjectById(projectId!)
     setProject(project)
-    const task = await trabalhandoService.getTaskById(Number(taskId))
+    const task = await trabalhandoService.getTaskById(taskId!)
     setTask(task)
     const workSpans = await trabalhandoService.getTaskWorkSpans(task.id)
 
@@ -41,13 +40,7 @@ function TaskPage() {
   }, [fetchData])
 
   const createWorkSpan = (data: WorkSpanInputs) => {
-    const span = {
-      task_id: Number(taskId!),
-      start_date: data.startDate,
-      end_date: data.endDate,
-      description: data.description
-    }
-    const promise = trabalhandoService.createWorkSpan(span);
+    const promise = trabalhandoService.createWorkSpan(taskId, data);
 
     toast.promise(
       promise,

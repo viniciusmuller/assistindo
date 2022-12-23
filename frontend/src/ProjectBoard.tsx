@@ -1,21 +1,17 @@
 import { Link, useParams } from "react-router-dom"
 import BlankSlate from "./ui/BlankSlate"
-import { Project, ProjectId, Task, trabalhandoService } from "./services/trabalhando-service"
+import { Task, trabalhandoService } from "./services/trabalhando-service"
 import TaskCard from "./TaskCard"
 import { useEffect, useState } from "react"
 
-interface ProjectBoardProps {
-  project: Project
-}
-
-function ProjectBoard(props: ProjectBoardProps) {
+function ProjectBoard() {
   const { projectId } = useParams()
   const [todoTasks, setTodoTasks] = useState<Task[] | null>(null)
   const [doingTasks, setDoingTasks] = useState<Task[] | null>(null)
   const [doneTasks, setDoneTasks] = useState<Task[] | null>(null)
 
   useEffect(() => {
-    trabalhandoService.getProjectTasks(Number(projectId))
+    trabalhandoService.getProjectTasks(projectId!)
       .then(tasks => {
         setTodoTasks(tasks.filter(t => t.status == "todo"))
         setDoingTasks(tasks.filter(t => t.status == "doing"))

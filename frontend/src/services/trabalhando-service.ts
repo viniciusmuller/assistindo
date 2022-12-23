@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
-export type ProjectId = number
-export type TaskId = number
+export type ProjectId = string
+export type TaskId = string
 
 interface PhoenixResponse<T> {
   data: T
@@ -29,13 +29,6 @@ export interface Task {
 
 export interface WorkSpan {
   id: string,
-  task_id: TaskId,
-  end_date: string
-  start_date: string
-  description: string
-}
-
-export interface CreateWorkSpan {
   task_id: TaskId,
   end_date: string
   start_date: string
@@ -92,9 +85,15 @@ class TrabalhandoService {
     return response.data.data
   }
 
-  // TODO: learn more about TS error handling
-  async createWorkSpan(span: CreateWorkSpan): Promise<WorkSpan> {
-    const response = await this.axios.post(`/work-spans`, { task_id: span.task_id, work_span: span })
+  // TODO: use axios middleware to convert between camel and snake case
+  async createWorkSpan(taskId: TaskId, span: WorkSpanInputs): Promise<WorkSpan> {
+    const response = await this.axios.post(`/work-spans`, {
+      task_id: taskId, work_span: {
+        end_date: span.endDate,
+        start_date: span.startDate,
+        description: span.description
+      }
+    })
     return response.data.data
   }
 

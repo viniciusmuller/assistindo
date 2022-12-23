@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import { Project, trabalhandoService } from "./services/trabalhando-service"
 import { Breadcrumb, BreadcrumbHome, BreadcrumbItem } from "./ui/Breadcrumb"
 import Button from "./ui/Button"
+import Input from "./ui/Input"
 
 enum Tab {
   Details,
@@ -72,15 +73,15 @@ function ProjectDetails() {
               <form className="flex flex-col space-y-2">
                 <div>
                   <label className="block">Name</label>
-                  <input type="text" defaultValue={project.name} />
+                  <Input type="text" defaultValue={project.name} />
                 </div>
                 <div>
                   <label className="block">Hourly value</label>
-                  <input type="text" defaultValue={project.hour_value} />
+                  <Input type="text" defaultValue={project.hour_value} />
                 </div>
                 <div>
                   <label className="block">Currency prefix</label>
-                  <input type="text" defaultValue={project.currency_prefix} />
+                  <Input type="text" defaultValue={project.currency_prefix} />
                 </div>
 
                 <div>

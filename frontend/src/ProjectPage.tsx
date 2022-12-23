@@ -28,10 +28,6 @@ function ProjectPage() {
               <span>{project.name}</span>
             </BreadcrumbItem>
           </Breadcrumb>
-          {/* TODO: don't use project card component here 
-            this will show different information (such as an options edit button, etc)
-            and should not try to use or modify the existing project card
-          */}
           <div className="w-full px-8 py-4 space-y-2 border rounded-lg bg-white">
             <div className="w-full flex items-center justify-between">
               <h1 className="text-3xl font-bold">{project.name}</h1>

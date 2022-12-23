@@ -9,6 +9,7 @@ import WorkSpanCard from "./WorkSpanCard"
 import BlankSlate from "./ui/BlankSlate"
 import { useForm } from "react-hook-form"
 import TaskForm from "./TaskForm"
+import Input from "./ui/Input"
 
 function TaskPage() {
   const { projectId, taskId } = useParams()
@@ -120,11 +121,11 @@ function TaskPage() {
                       <label> Start date </label>
                       {/* TODO: figure out how to use our custom input in here */}
                       {/* TODO: make default respect timezone but exclude seconds precision */}
-                      <input type="datetime-local" {...register("startDate")} defaultValue={getCurrentDate()} />
+                      <Input type="datetime-local" {...register("startDate")} defaultValue={getCurrentDate()} />
                     </div>
                     <div className="flex space-x-2 items-center grow">
                       <label> End date </label>
-                      <input type="datetime-local" {...register("endDate")} defaultValue={getCurrentDate()} />
+                      <Input type="datetime-local" {...register("endDate")} defaultValue={getCurrentDate()} />
                     </div>
                     <div className="space-x-2 flex items-center">
                       <Button type="submit" text="Submit" classes="border border-black hover:bg-gray-200" />
@@ -132,7 +133,7 @@ function TaskPage() {
                   </div>
                   <div className="flex space-x-2 items-center grow">
                     <label> Description </label>
-                    <input type="text" size={44} {...register("description", { required: true })} />
+                    <Input type="text" size={44} {...register("description", { required: true })} />
                     {errors.description && <p>Cannot be blank</p>}
                   </div>
                 </form>

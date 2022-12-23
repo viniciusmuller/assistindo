@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Task, TaskInputs } from "./services/trabalhando-service";
 import Button from "./ui/Button";
+import Input from "./ui/Input";
+import Select from "./ui/Select";
 
 interface TaskFormProps {
   task?: Task
@@ -15,18 +17,18 @@ function TaskForm(props: TaskFormProps) {
       <div className="flex justify-between">
         <div className="space-x-2">
           <label>Name</label>
-          <input type="text" defaultValue={props.task?.name} size={50} {...register("name")} />
+          <Input type="text" defaultValue={props.task?.name} size={50} {...register("name")} />
         </div>
 
         <div className="space-x-2">
           <label className="text-xl" htmlFor="status-select">
             Status
           </label>
-          <select {...register("status")} defaultValue={props.task?.status}>
+          <Select {...register("status")} defaultValue={props.task?.status}>
             <option value="todo">TODO</option>
             <option value="doing">DOING</option>
             <option value="done">DONE</option>
-          </select>
+          </Select>
         </div>
       </div>
       <div>

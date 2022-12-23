@@ -1,12 +1,11 @@
-import { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import { DetailedHTMLProps, forwardRef, InputHTMLAttributes, LegacyRef } from "react";
 
 interface InputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> { }
 
-function Input(props: InputProps) {
-  return (
-    <input {...props} className="rounded">
-    </input>
-  )
-}
+const Input = forwardRef((props: InputProps, ref: LegacyRef<HTMLInputElement>) =>
+(
+  <input ref={ref} {...props} className="rounded">
+  </input>
+))
 
 export default Input

@@ -6,6 +6,7 @@ import ProjectPage from './ProjectPage';
 import TaskPage from './TaskPage';
 import { Toaster } from 'react-hot-toast';
 import CreateTaskPage from './CreateTaskPage';
+import ProjectDetails from './ProjectDetails';
 
 function NoMatch() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/" element={<Index />} />
         <Route index element={<Index />} />
         <Route path="projects/:projectId" element={<ProjectPage />} />
+        <Route path="projects/:projectId/details" element={<ProjectDetails />} />
         <Route path="projects/:projectId/tasks/new" element={<CreateTaskPage />} />
         <Route path="projects/:projectId/tasks/:taskId" element={<TaskPage />} />
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BsChevronRight } from "react-icons/bs";
-import { useNavigate, useParams } from "react-router-dom";
+import { FaCog } from 'react-icons/fa'
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ProjectBoard from "./ProjectBoard";
 import { Project, trabalhandoService } from "./services/trabalhando-service";
 import { Breadcrumb, BreadcrumbHome, BreadcrumbItem } from "./ui/Breadcrumb";
@@ -34,14 +35,16 @@ function ProjectPage() {
           <div className="w-full px-8 py-4 space-y-2 border rounded-lg bg-white">
             <div className="w-full flex items-center justify-between">
               <h1 className="text-3xl font-bold">{project.name}</h1>
-              <h2 className="text-xl font-bold">10 hours last 2 weeks</h2>
+              <Link to={`/projects/${projectId}/details`} className="p-2 rounded-full border hover:bg-gray-200">
+                <FaCog className="text-gray-700" />
+              </Link>
             </div>
             <div className="w-full flex items-center justify-between">
               <div>
-                <p className="text-lg">9 tasks in progress</p>
                 <p className="text-lg">2 tasks pending</p>
+                <p className="text-lg">9 tasks in progress</p>
               </div>
-              <Button text="Details" classes="border border-black hover:bg-gray-200" onClick={() => navigate(`/projects/${projectId}/details`)} />
+              <h2 className="text-xl font-bold">10 hours last 2 weeks</h2>
             </div>
           </div>
           <Button text="Create new task" classes="border border-black hover:bg-gray-200" onClick={() => navigate(`/projects/${projectId}/tasks/new`)} />

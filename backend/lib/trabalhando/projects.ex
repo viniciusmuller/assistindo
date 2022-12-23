@@ -19,22 +19,24 @@ defmodule Trabalhando.Projects do
 
   """
   def list_projects do
-    # query =
-    #   from(p in Project,
-    #     select: %{
-    #       p
-    #       | hours_last_two_weeks: 20
-    #         # from(t2 in Task,
-    #         #   where: t2.id == ^t1.id,
-    #         #   join: ws in assoc(t2, :work_spans),
-    #         #   group_by: [ws.task_id, t2.id],
-    #         #   select:
-    #         #     sum(fragment("EXTRACT(EPOCH from ? - ?) / 3600", ws.end_date, ws.start_date))
-    #         # )
-    #     }
-    #   )
+    query = projects_with_work_time()
+    Repo.all(query)
+  end
 
-    Repo.all(Project)
+  defp projects_with_work_time do
+    from(p in Project,
+      left_join: t in assoc(p, :tasks),
+      left_join: w in assoc(t, :work_spans),
+      group_by: p.id,
+      select: %{
+        p
+        | hours_last_two_weeks:
+            coalesce(
+              sum(fragment("EXTRACT(EPOCH from ? - ?) / 3600", w.end_date, w.start_date)),
+              0
+            )
+      }
+    )
   end
 
   def get_project_tasks(project_id) do
@@ -46,18 +48,14 @@ defmodule Trabalhando.Projects do
         select: %{
           t
           | total_hours:
-              sum(fragment("EXTRACT(EPOCH from ? - ?) / 3600", ws.end_date, ws.start_date))
+              coalesce(
+                sum(fragment("EXTRACT(EPOCH from ? - ?) / 3600", ws.end_date, ws.start_date)),
+                0
+              )
         }
       )
 
-    # TODO: figure how to do it inside the query
     Repo.all(query)
-    |> Enum.map(fn task ->
-      case task.total_hours do
-        nil -> Map.put(task, :total_hours, 0)
-        _ -> task
-      end
-    end)
   end
 
   @doc """
@@ -74,7 +72,13 @@ defmodule Trabalhando.Projects do
       ** (Ecto.NoResultsError)
 
   """
-  def get_project!(id), do: Repo.get!(Project, id)
+  def get_project!(id) do
+    query =
+      from p in subquery(projects_with_work_time()),
+        where: p.id == ^id
+
+    Repo.one!(query)
+  end
 
   @doc """
   Creates a project.

@@ -8,7 +8,7 @@ interface TaskFormProps {
 }
 
 function TaskForm(props: TaskFormProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm<TaskInputs>();
+  const { register, handleSubmit } = useForm<TaskInputs>();
 
   return (
     <form className="space-y-3" onSubmit={handleSubmit(props.handleSubmit)}>

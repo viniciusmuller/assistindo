@@ -9,7 +9,7 @@ function ProjectCard(props: ProjectCardProps) {
     <div key={props.project.id} className="w-full px-8 py-4 space-y-2 border rounded-lg bg-white hover:bg-gray-100">
       <div className="w-full flex items-center justify-between">
         <h1 className="text-3xl font-bold">{props.project.name}</h1>
-        <h2 className="text-xl font-bold">{props.project.hours_last_two_weeks} hours last two weeks</h2>
+        <h2 className="text-xl font-bold">{parseFloat(props.project.hours_last_two_weeks).toFixed(2)} hours last two weeks</h2>
       </div>
       <div className="w-full flex items-center justify-between">
         <div>

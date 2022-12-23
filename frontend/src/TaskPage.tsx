@@ -40,7 +40,7 @@ function TaskPage() {
   }, [fetchData])
 
   const createWorkSpan = (data: WorkSpanInputs) => {
-    const promise = trabalhandoService.createWorkSpan(taskId, data);
+    const promise = trabalhandoService.createWorkSpan(taskId!, data);
 
     toast.promise(
       promise,

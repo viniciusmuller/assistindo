@@ -44,7 +44,7 @@ function ProjectPage() {
                 <p className="text-lg">2 tasks pending</p>
                 <p className="text-lg">9 tasks in progress</p>
               </div>
-              <h2 className="text-xl font-bold">10 hours last 2 weeks</h2>
+              <h2 className="text-xl font-bold">{parseFloat(project.hours_last_two_weeks).toFixed(2)} hours last 2 weeks</h2>
             </div>
           </div>
           <Button text="Create new task" classes="border border-black hover:bg-gray-200" onClick={() => navigate(`/projects/${projectId}/tasks/new`)} />

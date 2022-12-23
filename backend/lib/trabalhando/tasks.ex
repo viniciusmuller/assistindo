@@ -10,19 +10,6 @@ defmodule Trabalhando.Tasks do
   alias Trabalhando.Tasks.Task
 
   @doc """
-  Returns the list of tasks.
-
-  ## Examples
-
-      iex> list_tasks()
-      [%Task{}, ...]
-
-  """
-  def list_tasks do
-    Repo.all(Task)
-  end
-
-  @doc """
   Gets a single task.
 
   Raises `Ecto.NoResultsError` if the Task does not exist.

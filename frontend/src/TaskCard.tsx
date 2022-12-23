@@ -12,7 +12,7 @@ function TaskCard(props: TaskCardProps) {
           <h1 className="text-3xl font-bold">{props.task.name}</h1>
         </div>
         <div className="w-full flex items-center justify-between">
-          <h2 className="text-xl font-bold">10 hours spent so far</h2>
+          <h2 className="text-xl font-bold">{parseFloat(props.task.total_hours).toFixed(2)} hours spent so far</h2>
           <p>Click for details</p>
         </div>
       </div>

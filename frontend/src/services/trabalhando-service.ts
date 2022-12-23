@@ -24,7 +24,8 @@ export interface Task {
   project_id: ProjectId,
   name: string,
   status: 'todo' | 'doing' | 'done'
-  description: string
+  description: string,
+  total_hours: string
 }
 
 export interface WorkSpan {

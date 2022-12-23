@@ -17,7 +17,8 @@ defmodule TrabalhandoWeb.TaskView do
       project_id: task.project_id,
       status: task.status,
       name: task.name,
-      description: task.description
+      description: task.description,
+      total_hours: task.total_hours
     }
   end
 end

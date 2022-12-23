@@ -6,6 +6,7 @@ defmodule Trabalhando.Tasks.Task do
     field :description, :string
     field :name, :string
     field :status, Ecto.Enum, values: [:todo, :doing, :done], default: :todo
+    field :total_hours, :float, virtual: true
     belongs_to :project, Trabalhando.Projects.Project
     has_many :work_spans, Trabalhando.TimeTracking.WorkSpan
 

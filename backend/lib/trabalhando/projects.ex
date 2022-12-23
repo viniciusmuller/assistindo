@@ -4,6 +4,7 @@ defmodule Trabalhando.Projects do
   """
 
   import Ecto.Query, warn: false
+  alias Trabalhando.TimeTracking.WorkSpan
   alias Trabalhando.Repo
 
   alias Trabalhando.Projects.Project
@@ -23,7 +24,19 @@ defmodule Trabalhando.Projects do
   end
 
   def get_project_tasks(project_id) do
-    Repo.all(from s in Task, where: s.project_id == ^project_id)
+    query =
+      from(t in Task,
+        join: ws in assoc(t, :work_spans),
+        group_by: [ws.task_id, t.id],
+        where: t.project_id == ^project_id,
+        select: %{
+          t
+          | total_hours:
+              sum(fragment("EXTRACT(EPOCH from ? - ?) / 3600", ws.end_date, ws.start_date))
+        }
+      )
+
+    Repo.all(query)
   end
 
   @doc """

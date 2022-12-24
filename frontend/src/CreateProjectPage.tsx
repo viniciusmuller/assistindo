@@ -33,10 +33,6 @@ function CreateTaskPage() {
         <BreadcrumbItem>
           <span>New Project</span>
         </BreadcrumbItem>
-        <BsChevronRight />
-        <BreadcrumbItem>
-          <span>New task</span>
-        </BreadcrumbItem>
       </Breadcrumb>
       <ProjectForm handleSubmit={createProject} />
     </div >

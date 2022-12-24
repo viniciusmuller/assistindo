@@ -13,8 +13,8 @@ function ProjectCard(props: ProjectCardProps) {
       </div>
       <div className="w-full flex items-center justify-between">
         <div>
-          <p className="text-lg">9 tasks in progress</p>
-          <p className="text-lg">2 tasks pending</p>
+          <p className="text-lg">{props.project.in_progress_tasks} tasks in progress</p>
+          <p className="text-lg">{props.project.pending_tasks} tasks pending</p>
         </div>
         <p className="text-lg">Hourly value: {props.project.currency_prefix}{parseFloat(props.project.hour_value).toFixed(2)}</p>
       </div>

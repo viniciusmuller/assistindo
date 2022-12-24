@@ -42,6 +42,8 @@ export interface Project {
   hour_value: string
   currency_prefix: string
   total_hours: string
+  pending_tasks: number,
+  in_progress_tasks: number,
 }
 
 class TrabalhandoService {

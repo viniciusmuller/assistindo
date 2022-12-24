@@ -37,8 +37,8 @@ function ProjectPage() {
             </div>
             <div className="w-full flex items-center justify-between">
               <div>
-                <p className="text-lg">2 tasks pending</p>
-                <p className="text-lg">9 tasks in progress</p>
+                <p className="text-lg">{project.pending_tasks} tasks pending</p>
+                <p className="text-lg">{project.in_progress_tasks} tasks in progress</p>
               </div>
               <h2 className="text-xl font-bold">{parseFloat(project.total_hours).toFixed(2)} hours registered</h2>
             </div>

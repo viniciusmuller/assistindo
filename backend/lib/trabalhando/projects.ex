@@ -34,7 +34,9 @@ defmodule Trabalhando.Projects do
             coalesce(
               sum(fragment("EXTRACT(EPOCH from ? - ?) / 3600", w.end_date, w.start_date)),
               0
-            )
+            ),
+          in_progress_tasks: 400,
+          pending_tasks: 1000
       }
     )
   end

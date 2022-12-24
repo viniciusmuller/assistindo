@@ -7,6 +7,8 @@ defmodule Trabalhando.Projects.Project do
     field :name, :string
     field :currency_prefix, :string, default: "$"
     field :total_hours, :float, virtual: true
+    field :pending_tasks, :integer, virtual: true
+    field :in_progress_tasks, :integer, virtual: true
     has_many :tasks, Trabalhando.Tasks.Task
 
     timestamps()

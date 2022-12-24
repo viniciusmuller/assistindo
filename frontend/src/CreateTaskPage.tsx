@@ -12,7 +12,7 @@ function CreateTaskPage() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    trabalhandoService.getProjectById(Number(projectId!))
+    trabalhandoService.getProjectById(projectId!)
       .then(project => setProject(project))
   }, [])
 
@@ -26,7 +26,7 @@ function CreateTaskPage() {
     toast.promise(
       promise,
       {
-        loading: 'Deleting work span...',
+        loading: 'Creating task...',
         success: <b>Succesfully created task!</b>,
         error: <b>Could not create task.</b>,
       }

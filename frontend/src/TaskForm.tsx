@@ -21,7 +21,7 @@ function TaskForm(props: TaskFormProps) {
         </div>
 
         <div className="space-x-2">
-          <label className="text-xl" htmlFor="status-select">
+          <label className="text-xl">
             Status
           </label>
           <Select {...register("status")} defaultValue={props.task?.status}>

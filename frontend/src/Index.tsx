@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCard";
 import { Project, trabalhandoService } from "./services/trabalhando-service";
-import { Breadcrumb, BreadcrumbHome, BreadcrumbItem } from "./ui/Breadcrumb";
+import Button from "./ui/Button";
 
 function Index() {
   const [projects, setProjects] = useState<Project[]>([])
@@ -13,6 +13,9 @@ function Index() {
 
   return (
     <div className="p-4 space-y-4">
+      <Link to="/projects/new">
+        <Button text="New project" classes="border border-black hover:bg-gray-200" />
+      </Link>
       {projects.map(p =>
         <div key={p.id}>
           <Link to={`/projects/${p.id}`}>

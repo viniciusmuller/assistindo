@@ -7,6 +7,12 @@ interface PhoenixResponse<T> {
   data: T
 }
 
+export type ProjectInputs = {
+  name: string,
+  hour_value: number,
+  currency_prefix: string,
+};
+
 export type TaskInputs = {
   name: string,
   status: string,
@@ -41,6 +47,7 @@ export interface Project {
   name: string,
   hour_value: string
   currency_prefix: string
+  // virtual
   total_hours: string
   pending_tasks: number,
   in_progress_tasks: number,
@@ -87,6 +94,11 @@ class TrabalhandoService {
 
   async createTask(projectId: string, data: TaskInputs): Promise<Task> {
     const response = await this.axios.post(`/tasks`, { project_id: projectId, task: data })
+    return response.data.data
+  }
+
+  async createProject(data: ProjectInputs): Promise<Project> {
+    const response = await this.axios.post(`/projects`, { project: data })
     return response.data.data
   }
 

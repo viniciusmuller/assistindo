@@ -102,6 +102,11 @@ class TrabalhandoService {
     return response.data.data
   }
 
+  async updateProject(id: ProjectId, data: ProjectInputs): Promise<Project> {
+    const response = await this.axios.put(`/projects/${id}`, { project: data })
+    return response.data.data
+  }
+
   // TODO: use axios middleware to convert between camel and snake case
   async createWorkSpan(taskId: TaskId, span: WorkSpanInputs): Promise<WorkSpan> {
     const response = await this.axios.post(`/work-spans`, {

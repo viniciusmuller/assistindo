@@ -43,7 +43,9 @@ function ProjectPage() {
               <h2 className="text-xl font-bold">{parseFloat(project.total_hours).toFixed(2)} hours registered</h2>
             </div>
           </div>
-          <Button text="Create new task" classes="border border-black hover:bg-gray-200" onClick={() => navigate(`/projects/${projectId}/tasks/new`)} />
+          <Button classes="border border-black hover:bg-gray-200" onClick={() => navigate(`/projects/${projectId}/tasks/new`)}>
+            Create new task
+          </Button>
           <ProjectBoard />
         </div>
       }

@@ -14,7 +14,9 @@ function Index() {
   return (
     <div className="p-4 space-y-4">
       <Link to="/projects/new">
-        <Button text="New project" classes="border border-black hover:bg-gray-200" />
+        <Button classes="border border-black hover:bg-gray-200">
+          New project
+        </Button>
       </Link>
       {projects.map(p =>
         <div key={p.id}>

@@ -39,17 +39,21 @@ function WorkSpanCard(props: WorkSpanCardProps) {
     <div className="p-2 border rounded space-y-2">
       <div className="flex space-x-8">
         <div className="flex space-x-2 items-center">
-          <label> Start date </label>
+          <label>Start date</label>
           <Input defaultValue={span.start_date.slice(0, -1)} type="datetime-local" name="datetime" />
         </div>
         <div className="flex space-x-2 items-center grow">
-          <label> End date </label>
+          <label>End date</label>
           <Input defaultValue={span.end_date.slice(0, -1)} type="datetime-local" name="datetime" />
         </div>
         <p>Worked for {`${padZero(hours)}:${padZero(minutes)}`}</p>
         <div className="space-x-2">
-          <Button text="Update" classes="border border-black hover:bg-gray-200" />
-          <Button text="Delete" onClick={handleDelete} classes="border border-black bg-red-400 hover:bg-red-600" />
+          <Button classes="border border-black hover:bg-gray-200">
+            Update
+          </Button>
+          <Button onClick={handleDelete} classes="border border-black bg-red-400 hover:bg-red-600">
+            Delete
+          </Button>
         </div>
       </div>
       <div>

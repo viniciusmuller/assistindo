@@ -1,13 +1,11 @@
-import { DetailedHTMLProps, InputHTMLAttributes, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { BsChevronRight } from "react-icons/bs"
-import { BiSpreadsheet } from "react-icons/bi"
-import { TbFileSpreadsheet } from "react-icons/tb"
 import { Link, useParams } from "react-router-dom"
-import { Project, trabalhandoService } from "./services/trabalhando-service"
+import { Project, ProjectInputs, trabalhandoService } from "./services/trabalhando-service"
 import { Breadcrumb, BreadcrumbHome, BreadcrumbItem } from "./ui/Breadcrumb"
-import Button from "./ui/Button"
-import Input from "./ui/Input"
 import ProjectReporting from "./ProjectReporting"
+import ProjectForm from "./ProjectForm"
+import toast from "react-hot-toast"
 
 enum Tab {
   Details,
@@ -20,6 +18,22 @@ function ProjectDetails() {
 
   const [project, setProject] = useState<Project | null>(null)
   const [currentTab, setCurrentTab] = useState<Tab>(Tab.Details)
+
+  const updateProject = async (data: ProjectInputs) => {
+    const promise = trabalhandoService.updateProject(projectId!, data);
+
+    toast.promise(
+      promise,
+      {
+        loading: 'Updating the project...',
+        success: <b>Succesfully updated project!</b>,
+        error: <b>Could not update project.</b>,
+      }
+    );
+
+    promise.then(project => setProject(project))
+  }
+
 
   useEffect(() => {
     trabalhandoService.getProjectById(projectId!)
@@ -68,28 +82,9 @@ function ProjectDetails() {
               </button>
             </li>
           </ul>
-          <div className="p-4 border rounded-b-lg ">
+          <div className="p-4 border rounded-b-lg">
             {currentTab == Tab.Details &&
-              <form className="flex flex-col space-y-2">
-                <div>
-                  <label className="block">Name</label>
-                  <Input type="text" defaultValue={project.name} />
-                </div>
-                <div>
-                  <label className="block">Hourly value</label>
-                  <Input type="text" defaultValue={project.hour_value} />
-                </div>
-                <div>
-                  <label className="block">Currency prefix</label>
-                  <Input type="text" defaultValue={project.currency_prefix} />
-                </div>
-
-                <div>
-                  <Button type="submit" classes="border rounded hover:bg-gray-200">
-                    Submit
-                  </Button>
-                </div>
-              </form>
+              <ProjectForm project={project} handleSubmit={updateProject} />
             }
             {currentTab == Tab.Insights &&
               <p>Insights</p>

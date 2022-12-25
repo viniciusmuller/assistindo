@@ -13,23 +13,24 @@ function TaskForm(props: TaskFormProps) {
 
   return (
     <form className="space-y-3" onSubmit={handleSubmit(props.handleSubmit)}>
-      <div className="space-x-2">
-        <label>Name</label>
-        <Input type="text" defaultValue={props.project?.name} {...register("name")} />
+
+      <div>
+        <label className="block">Name</label>
+        <Input type="text" {...register("name")} defaultValue={props.project?.name} />
+      </div>
+      <div>
+        <label className="block">Hourly value</label>
+        <Input type="text" {...register("hour_value")} step="0.01" defaultValue={props.project?.hour_value} />
+      </div>
+      <div>
+        <label className="block">Currency prefix</label>
+        <Input type="text" {...register("currency_prefix")} defaultValue={props.project?.currency_prefix} />
       </div>
 
-      <div className="space-x-2">
-        <label className="text-xl">
-          Hourly value
-        </label>
-        <Input type="number" step="0.01" {...register("hour_value")} defaultValue={props.project?.hour_value} />
-      </div>
-      <div className="space-x-2">
-        <label>Currency prefix</label>
-        <Input type="text" defaultValue={props.project?.currency_prefix} {...register("currency_prefix")} />
-      </div>
-      <Button text="Submit" type="submit" classes="border border-black hover:bg-gray-200" />
-    </form>
+      <Button type="submit" classes="border rounded hover:bg-gray-200">
+        Submit
+      </Button>
+    </form >
   )
 }
 

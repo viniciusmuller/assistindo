@@ -35,8 +35,10 @@ function TaskForm(props: TaskFormProps) {
         <label>Description</label>
         <textarea className="w-full h-[500px] rounded" spellCheck={false} defaultValue={props.task?.description} {...register("description")} />
       </div>
-      <Button text="Submit" type="submit" classes="border border-black hover:bg-gray-200" />
-    </form>
+      <Button type="submit" classes="border border-black hover:bg-gray-200">
+        Submit
+      </Button>
+    </form >
   )
 }
 

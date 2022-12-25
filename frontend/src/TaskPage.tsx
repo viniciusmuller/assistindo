@@ -128,7 +128,9 @@ function TaskPage() {
                       <Input type="datetime-local" {...register("endDate")} defaultValue={getCurrentDate()} />
                     </div>
                     <div className="space-x-2 flex items-center">
-                      <Button type="submit" text="Submit" classes="border border-black hover:bg-gray-200" />
+                      <Button type="submit" classes="border border-black hover:bg-gray-200">
+                        Submit
+                      </Button>
                     </div>
                   </div>
                   <div className="flex space-x-2 items-center grow">

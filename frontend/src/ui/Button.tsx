@@ -1,5 +1,4 @@
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  text: string,
   classes: string
 }
 
@@ -13,7 +12,7 @@ function Button(props: ButtonProps) {
         py-1
         rounded-md
     `}>
-      {props.text}
+      {props.children}
     </button>
   )
 }

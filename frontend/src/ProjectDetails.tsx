@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react"
+import { DetailedHTMLProps, InputHTMLAttributes, useEffect, useState } from "react"
 import { BsChevronRight } from "react-icons/bs"
+import { BiSpreadsheet } from "react-icons/bi"
+import { TbFileSpreadsheet } from "react-icons/tb"
 import { Link, useParams } from "react-router-dom"
 import { Project, trabalhandoService } from "./services/trabalhando-service"
 import { Breadcrumb, BreadcrumbHome, BreadcrumbItem } from "./ui/Breadcrumb"
 import Button from "./ui/Button"
 import Input from "./ui/Input"
+import ProjectReporting from "./ProjectReporting"
 
 enum Tab {
   Details,
@@ -22,8 +25,6 @@ function ProjectDetails() {
     trabalhandoService.getProjectById(projectId!)
       .then(p => setProject(p))
   }, [])
-
-  console.log(currentTab)
 
   return (
     <div className="p-4 space-y-4">
@@ -62,8 +63,7 @@ function ProjectDetails() {
             <li>
               <button
                 className={getTabStyle(currentTab, Tab.Reporting)}
-                onClick={() => setCurrentTab(Tab.Reporting)}
-              >
+                onClick={() => setCurrentTab(Tab.Reporting)} >
                 Reporting
               </button>
             </li>
@@ -85,7 +85,9 @@ function ProjectDetails() {
                 </div>
 
                 <div>
-                  <Button type="submit" text="Submit" classes={"border rounded hover:bg-gray-200"} />
+                  <Button type="submit" classes="border rounded hover:bg-gray-200">
+                    Submit
+                  </Button>
                 </div>
               </form>
             }
@@ -93,7 +95,7 @@ function ProjectDetails() {
               <p>Insights</p>
             }
             {currentTab == Tab.Reporting &&
-              <p>Reporting</p>
+              <ProjectReporting />
             }
           </div>
         </div>}

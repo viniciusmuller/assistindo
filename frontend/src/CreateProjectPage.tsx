@@ -34,7 +34,10 @@ function CreateTaskPage() {
           <span>New Project</span>
         </BreadcrumbItem>
       </Breadcrumb>
-      <ProjectForm handleSubmit={createProject} />
+      <div className="border rounded-lg p-4 space-y-4">
+        <h1 className="text-2xl">Create new project</h1>
+        <ProjectForm handleSubmit={createProject} />
+      </div>
     </div >
   )
 }

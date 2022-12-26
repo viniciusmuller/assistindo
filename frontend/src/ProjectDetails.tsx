@@ -110,7 +110,7 @@ function ProjectDetails() {
                 <h2 className="text-2xl my-2">Project configuration</h2>
                 <ProjectForm project={project} handleSubmit={updateProject} />
                 <h2 className="text-2xl my-2">Danger zone</h2>
-                <Button classes="bg-red-400 border border-black" onClick={deleteProject}>
+                <Button classes="bg-red-400 border border-black hover:bg-red-600" onClick={deleteProject}>
                   Delete project
                 </Button>
               </div>

@@ -9,6 +9,7 @@ interface PhoenixResponse<T> {
 
 export type ProjectInputs = {
   name: string,
+  paid: boolean,
   hour_value: number,
   currency_prefix: string,
 };
@@ -45,6 +46,7 @@ export interface WorkSpan {
 export interface Project {
   id: ProjectId,
   name: string,
+  paid: boolean,
   hour_value: string
   currency_prefix: string
   // virtual

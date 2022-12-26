@@ -15,8 +15,10 @@ defmodule TrabalhandoWeb.ProjectView do
     %{
       id: project.id,
       name: project.name,
+      paid: project.paid,
       hour_value: project.hour_value,
       currency_prefix: project.currency_prefix,
+
       total_hours: project.total_hours,
       pending_tasks: project.pending_tasks,
       in_progress_tasks: project.in_progress_tasks

@@ -7,6 +7,7 @@ import ProjectReporting from "./ProjectReporting"
 import ProjectForm from "./ProjectForm"
 import toast from "react-hot-toast"
 import Button from "./ui/Button"
+import ProjectInsights from "./ProjectInsights"
 
 enum Tab {
   Details,
@@ -108,6 +109,14 @@ function ProjectDetails() {
             {currentTab == Tab.Details &&
               <div>
                 <h2 className="text-2xl my-2">Project configuration</h2>
+                <div className="my-1 space-y-1">
+                  <p>
+                    Last update: {new Date(project.updated_at).toLocaleString()}
+                  </p>
+                  <p>
+                    Created at: {new Date(project.inserted_at).toLocaleString()}
+                  </p>
+                </div>
                 <ProjectForm project={project} handleSubmit={updateProject} />
                 <h2 className="text-2xl my-2">Danger zone</h2>
                 <Button classes="bg-red-400 border border-black hover:bg-red-600" onClick={deleteProject}>
@@ -116,7 +125,7 @@ function ProjectDetails() {
               </div>
             }
             {currentTab == Tab.Insights &&
-              <p>Insights</p>
+              <ProjectInsights project={project} />
             }
             {currentTab == Tab.Reporting &&
               <ProjectReporting />

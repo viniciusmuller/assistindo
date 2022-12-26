@@ -18,6 +18,8 @@ defmodule TrabalhandoWeb.ProjectView do
       paid: project.paid,
       hour_value: project.hour_value,
       currency_prefix: project.currency_prefix,
+      updated_at: project.updated_at,
+      inserted_at: project.inserted_at,
 
       total_hours: project.total_hours,
       pending_tasks: project.pending_tasks,

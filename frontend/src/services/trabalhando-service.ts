@@ -49,6 +49,8 @@ export interface Project {
   paid: boolean,
   hour_value: string
   currency_prefix: string
+  updated_at: string,
+  inserted_at: string,
   // virtual
   total_hours: string
   pending_tasks: number,

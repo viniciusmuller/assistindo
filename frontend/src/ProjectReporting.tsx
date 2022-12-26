@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BiSpreadsheet } from "react-icons/bi";
 import { TbFileSpreadsheet } from "react-icons/tb";
 import Button from "./ui/Button";
@@ -8,7 +8,8 @@ export default function ProjectReporting() {
   useEffect(() => {
     const date = new Date();
     const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-    (document.getElementById("report-start-date") as any).valueAsDate = firstDayOfMonth
+    (document.getElementById("report-start-date") as any).valueAsDate = firstDayOfMonth;
+    (document.getElementById("report-end-date") as any).valueAsDate = date
   })
 
   return (
@@ -25,7 +26,7 @@ export default function ProjectReporting() {
           <label>
             End date
           </label>
-          <Input type="date" />
+          <Input id="report-end-date" type="date" />
         </div>
       </form>
       <h2 className="text-2xl my-2">Generate report</h2>

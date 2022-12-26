@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { BsChevronRight } from "react-icons/bs"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { Project, ProjectInputs, trabalhandoService } from "./services/trabalhando-service"
 import { Breadcrumb, BreadcrumbHome, BreadcrumbItem } from "./ui/Breadcrumb"
 import ProjectReporting from "./ProjectReporting"
 import ProjectForm from "./ProjectForm"
 import toast from "react-hot-toast"
+import Button from "./ui/Button"
 
 enum Tab {
   Details,
@@ -15,6 +16,7 @@ enum Tab {
 
 function ProjectDetails() {
   const { projectId } = useParams()
+  const navigate = useNavigate()
 
   const [project, setProject] = useState<Project | null>(null)
   const [currentTab, setCurrentTab] = useState<Tab>(Tab.Details)
@@ -34,6 +36,26 @@ function ProjectDetails() {
     promise.then(project => setProject(project))
   }
 
+  const deleteProject = async () => {
+    if (project === null) {
+      return
+    }
+
+    if (confirm(`Delete project "${project.name}"? This cannot be undone.`)) {
+      const promise = trabalhandoService.deleteProject(project.id);
+      toast.promise(
+        promise,
+        {
+          loading: 'Deleting the project...',
+          success: <b>Succesfully deleted project!</b>,
+          error: <b>Could not delete project.</b>,
+        }
+      );
+
+      await promise;
+      navigate("/");
+    }
+  }
 
   useEffect(() => {
     trabalhandoService.getProjectById(projectId!)
@@ -84,7 +106,14 @@ function ProjectDetails() {
           </ul>
           <div className="p-4 border rounded-b-lg">
             {currentTab == Tab.Details &&
-              <ProjectForm project={project} handleSubmit={updateProject} />
+              <div>
+                <h2 className="text-2xl my-2">Project configuration</h2>
+                <ProjectForm project={project} handleSubmit={updateProject} />
+                <h2 className="text-2xl my-2">Danger zone</h2>
+                <Button classes="bg-red-400 border border-black" onClick={deleteProject}>
+                  Delete project
+                </Button>
+              </div>
             }
             {currentTab == Tab.Insights &&
               <p>Insights</p>

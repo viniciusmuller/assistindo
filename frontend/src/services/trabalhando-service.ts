@@ -107,6 +107,10 @@ class TrabalhandoService {
     return response.data.data
   }
 
+  async deleteProject(id: ProjectId) {
+    return await this.axios.delete(`/projects/${id}`)
+  }
+
   // TODO: use axios middleware to convert between camel and snake case
   async createWorkSpan(taskId: TaskId, span: WorkSpanInputs): Promise<WorkSpan> {
     const response = await this.axios.post(`/work-spans`, {

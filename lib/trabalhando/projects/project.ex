@@ -6,6 +6,7 @@ defmodule Trabalhando.Projects.Project do
     field :name, :string
     field :hour_value, :decimal
     field :currency, :string
+    has_many :tasks, Trabalhando.Projects.Task
 
     timestamps()
   end

@@ -8,6 +8,10 @@
   </:actions>
 </.header>
 
+<.link href={~p"/projects/#{@project}/tasks/#{@task}/time_spans/"}>
+  Time spans
+</.link>
+
 <.list>
   <:item title="Identifier"><%= @task.identifier %></:item>
   <:item title="Description"><%= @task.description %></:item>

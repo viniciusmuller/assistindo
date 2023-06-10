@@ -1,0 +1,25 @@
+<.header>
+  Listing Time spans
+  <:actions>
+    <.link href={~p"/projects/#{@project}/tasks/#{@task}/time_spans/new"}>
+      <.button>New Time span</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="time_spans" rows={@time_spans} row_click={&JS.navigate(~p"/projects/#{@project}/tasks/#{@task}/time_spans/#{&1}")}>
+  <:col :let={time_span} label="Description"><%= time_span.description %></:col>
+  <:col :let={time_span} label="Start date"><%= time_span.start_date %></:col>
+  <:col :let={time_span} label="End date"><%= time_span.end_date %></:col>
+  <:action :let={time_span}>
+    <div class="sr-only">
+      <.link navigate={~p"/projects/#{@project}/tasks/#{@task}/time_spans/#{time_span}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/projects/#{@project}/tasks/#{@task}/time_spans/#{time_span}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={time_span}>
+    <.link href={~p"/projects/#{@project}/tasks/#{@task}/time_spans/#{time_span}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>

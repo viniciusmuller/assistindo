@@ -1,0 +1,8 @@
+<.header>
+  New Time span
+  <:subtitle>Use this form to manage time_span records in your database.</:subtitle>
+</.header>
+
+<.time_span_form changeset={@changeset} action={~p"/projects/#{@project}/tasks/#{@task}/time_spans"} />
+
+<.back navigate={~p"/projects/#{@project}/tasks/#{@task}/time_spans"}>Back to time_spans</.back>

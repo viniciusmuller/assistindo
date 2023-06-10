@@ -6,7 +6,9 @@ defmodule Trabalhando.Projects.Task do
     field :status, Ecto.Enum, values: [:todo, :doing, :done], default: :todo
     field :description, :string
     field :identifier, :string
-    field :project_id, :id
+
+    belongs_to :project, Trabalhando.Projects.Project
+    has_many :time_spans, Trabalhando.TimeTracking.TimeSpan
 
     timestamps()
   end

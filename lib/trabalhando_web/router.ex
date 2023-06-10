@@ -20,7 +20,9 @@ defmodule TrabalhandoWeb.Router do
     get "/", PageController, :home
 
     resources "/projects", ProjectController do 
-      resources "/tasks", TaskController
+      resources "/tasks", TaskController do 
+        resources "/time_spans", TimeSpanController
+      end
     end
   end
 

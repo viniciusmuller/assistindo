@@ -1,0 +1,17 @@
+<.header>
+  Time span <%= @time_span.id %>
+  <:subtitle>This is a time_span record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/projects/#{@project}/tasks/#{@task}/time_spans/#{@time_span}/edit"}>
+      <.button>Edit time_span</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Description"><%= @time_span.description %></:item>
+  <:item title="Start date"><%= @time_span.start_date %></:item>
+  <:item title="End date"><%= @time_span.end_date %></:item>
+</.list>
+
+<.back navigate={~p"/projects/#{@project}/tasks/#{@task}/time_spans"}>Back to time_spans</.back>

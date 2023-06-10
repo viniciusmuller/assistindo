@@ -1,0 +1,25 @@
+<.header>
+  Listing Tasks
+  <:actions>
+    <.link href={~p"/projects/#{@project}/tasks/new"}>
+      <.button>New Task</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="tasks" rows={@tasks} row_click={&JS.navigate(~p"/projects/#{@project}/tasks/#{&1}")}>
+  <:col :let={task} label="Identifier"><%= task.identifier %></:col>
+  <:col :let={task} label="Description"><%= task.description %></:col>
+  <:col :let={task} label="Status"><%= task.status %></:col>
+  <:action :let={task}>
+    <div class="sr-only">
+      <.link navigate={~p"/projects/#{@project}/tasks/#{task}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/projects/#{@project}/tasks/#{task}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={task}>
+    <.link href={~p"/projects/#{@project}/tasks/#{task}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>

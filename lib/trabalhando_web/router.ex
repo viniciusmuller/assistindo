@@ -18,6 +18,10 @@ defmodule TrabalhandoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    resources "/projects", ProjectController do 
+      resources "/tasks", TaskController
+    end
   end
 
   # Other scopes may use custom stacks.
